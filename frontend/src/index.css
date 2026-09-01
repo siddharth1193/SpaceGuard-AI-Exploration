@@ -1,0 +1,230 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    @apply bg-gray-950 text-gray-100 min-h-screen;
+  }
+
+  /* Focus visibility — keyboard only */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-blue-500;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-gray-500;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-gray-900 border border-gray-700/50 rounded-xl p-4;
+  }
+
+  .card-header {
+    @apply flex items-center justify-between mb-4;
+  }
+
+  .card-title {
+    @apply text-sm font-semibold text-gray-300 uppercase tracking-wider;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold uppercase tracking-wide;
+  }
+
+  .status-healthy {
+    @apply status-badge bg-green-500/15 text-green-400 border border-green-500/25;
+  }
+
+  .status-warning {
+    @apply status-badge bg-yellow-500/15 text-yellow-400 border border-yellow-500/25;
+  }
+
+  .status-degraded {
+    @apply status-badge bg-orange-500/15 text-orange-400 border border-orange-500/25;
+  }
+
+  .status-critical {
+    @apply status-badge bg-red-500/15 text-red-400 border border-red-500/25;
+  }
+
+  .risk-low {
+    @apply text-green-400;
+  }
+
+  .risk-medium {
+    @apply text-yellow-400;
+  }
+
+  .risk-high {
+    @apply text-orange-400;
+  }
+
+  .risk-critical {
+    @apply text-red-400;
+  }
+
+  .demo-badge {
+    @apply inline-flex items-center gap-1 px-2 py-0.5 bg-purple-500/20 text-purple-300 border border-purple-500/30 rounded text-xs font-mono font-medium;
+  }
+
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-sm font-medium transition-colors disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply px-4 py-2 bg-gray-700 hover:bg-gray-600 text-gray-200 rounded-lg text-sm font-medium transition-colors;
+  }
+
+  .metric-value {
+    @apply text-2xl font-bold font-mono text-white;
+  }
+
+  .metric-label {
+    @apply text-xs text-gray-400 uppercase tracking-wider mt-0.5;
+  }
+
+  .data-row {
+    @apply flex items-center justify-between py-2 border-b border-gray-700/50 last:border-0;
+  }
+
+  .data-label {
+    @apply text-xs text-gray-400 uppercase tracking-wide;
+  }
+
+  .data-value {
+    @apply text-sm font-mono text-gray-200;
+  }
+}
+
+/* ── Leaflet overrides ──────────────────────────────────────────────────────── */
+.leaflet-container {
+  background: #020818 !important;
+  font-family: 'Inter', sans-serif;
+}
+
+.leaflet-tile-pane .leaflet-layer {
+  filter: brightness(0.65) saturate(0.4) hue-rotate(200deg);
+}
+
+.leaflet-popup-content-wrapper {
+  background: #111827 !important;
+  border: 1px solid rgba(75, 85, 99, 0.5) !important;
+  color: #f3f4f6 !important;
+  border-radius: 12px !important;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.7) !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-tip {
+  background: #111827 !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  min-width: 240px;
+}
+
+.leaflet-control-zoom a {
+  background: #1f2937 !important;
+  color: #9ca3af !important;
+  border-color: #374151 !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: #374151 !important;
+  color: #f3f4f6 !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(2, 8, 24, 0.8) !important;
+  color: #6b7280 !important;
+  font-size: 10px !important;
+}
+
+.leaflet-control-attribution a {
+  color: #6b7280 !important;
+}
+
+/* ── Satellite marker ───────────────────────────────────────────────────────── */
+.satellite-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 1; }
+  100% { transform: scale(2); opacity: 0; }
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .spinner {
+    animation: none;
+    border-top-color: #3b82f6;
+    opacity: 0.7;
+  }
+}
+
+/* ── Subtle grid background for mission-control aesthetic ───────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
