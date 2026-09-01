@@ -1,4 +1,4 @@
-import { renderHook, waitFor } from '@testing-library/react'
+import { renderHook, waitFor, act } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { useSpaceGuardData } from './useSpaceGuardData'
 import * as api from '../services/api'
@@ -76,9 +76,11 @@ describe('useSpaceGuardData', () => {
     const updateHandler = mockSocket.on.mock.calls.find(call => call[0] === 'satellite:update')[1]
     
     const now = new Date().toISOString()
-    updateHandler({
-      satellites: [{ id: 'sat-1', name: 'Sat 1 Updated' }],
-      timestamp: now
+    act(() => {
+      updateHandler({
+        satellites: [{ id: 'sat-1', name: 'Sat 1 Updated' }],
+        timestamp: now
+      })
     })
 
     expect(result.current.satellites).toEqual([{ id: 'sat-1', name: 'Sat 1 Updated' }])
