@@ -31,6 +31,9 @@ jobs:
         with:
           version: '10'
 
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
       - name: Install dependencies
         working-directory: ./frontend
         run: pnpm install --frozen-lockfile
